@@ -27,5 +27,29 @@ yargs(hideBin(process.argv))
       (argv) => {}
     );
   })
+  .command(
+    "find <filter>",
+    "find your hope",
+    (yargs) => {
+      return yargs.positional("filter", {
+        type: "string",
+        describe: "Filter to find hopes",
+      });
+    },
+    (argv) => {
+      console.log(argv);
+    }
+  )
+  .command(
+    "delete <id>",
+    "Delete hopes by id",
+    (yargs) => {
+      return yargs.positional("delete", {
+        type: "id",
+        describe: "Id of the hope your want to delete"
+      })
+    },
+    (argv) => {}
+  )
   .demandCommand(1)
   .parse();
