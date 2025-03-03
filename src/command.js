@@ -20,5 +20,12 @@ yargs(hideBin(process.argv))
     type: "string",
     description: "Tags for the hope",
   })
+  .command("all", "Get all hopes", (yargs) => {
+    return yargs.positional(
+      "all",
+      () => {},
+      (argv) => {}
+    );
+  })
   .demandCommand(1)
   .parse();
