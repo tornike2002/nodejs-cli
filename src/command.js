@@ -1,6 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-
+import { getAllHopes, newHope } from "./hopes.js";
+import { ListHopes } from "./utils/helper.js";
 yargs(hideBin(process.argv))
   .command(
     "new <hope>",
@@ -11,8 +12,10 @@ yargs(hideBin(process.argv))
         describe: "Hope to create",
       });
     },
-    (argv) => {
-      console.log(argv);
+    async (argv) => {
+      const tags = argv.tags ? argv.tags.split(",") : [];
+      const note = await newHope(argv.hope, tags);
+      console.log(note);
     }
   )
   .option("tags", {
@@ -20,13 +23,15 @@ yargs(hideBin(process.argv))
     type: "string",
     description: "Tags for the hope",
   })
-  .command("all", "Get all hopes", (yargs) => {
-    return yargs.positional(
-      "all",
-      (yargs) => {},
-      (argv) => {}
-    );
-  })
+  .command(
+    "all",
+    "get all notes",
+    () => {},
+    async () => {
+      const hopes = await getAllHopes();
+      ListHopes(hopes);
+    }
+  )
   .command(
     "find <filter>",
     "find your hope",
