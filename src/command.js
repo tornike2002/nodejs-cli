@@ -23,7 +23,7 @@ yargs(hideBin(process.argv))
   .command("all", "Get all hopes", (yargs) => {
     return yargs.positional(
       "all",
-      () => {},
+      (yargs) => {},
       (argv) => {}
     );
   })
