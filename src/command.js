@@ -63,5 +63,11 @@ yargs(hideBin(process.argv))
     },
     (argv) => {}
   )
+  .command(
+    "clean",
+    "Clear all hopes",
+    (yargs) => {},
+    (argv) => {}
+  )
   .demandCommand(1)
   .parse();
