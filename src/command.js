@@ -1,7 +1,15 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { getAllHopes, newHope } from "./hopes.js";
+import {
+  findHopes,
+  getAllHopes,
+  newHope,
+  removeAllHopes,
+  removeHope,
+} from "./hopes.js";
 import { ListHopes } from "./utils/helper.js";
+
+
 yargs(hideBin(process.argv))
   .command(
     "new <hope>",
@@ -41,8 +49,9 @@ yargs(hideBin(process.argv))
         describe: "Filter to find hopes",
       });
     },
-    (argv) => {
-      console.log(argv);
+    async (argv) => {
+      const hopes = await findHopes(argv.filter);
+      ListHopes(hopes);
     }
   )
   .command(
@@ -54,7 +63,14 @@ yargs(hideBin(process.argv))
         describe: "Id of the hope your want to delete",
       });
     },
-    (argv) => {}
+    async (argv) => {
+      const id = await removeHope(argv.id);
+      if (id) {
+        console.log("hope removed" + id);
+      } else {
+        console.log("invalid id try again");
+      }
+    }
   )
   .command(
     "web [port]",
@@ -71,8 +87,11 @@ yargs(hideBin(process.argv))
   .command(
     "clean",
     "Clear all hopes",
-    (yargs) => {},
-    (argv) => {}
+    () => {},
+    () => {
+      removeAllHopes();
+      console.log("All hopes removed");
+    }
   )
   .demandCommand(1)
   .parse();
