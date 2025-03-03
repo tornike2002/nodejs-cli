@@ -46,8 +46,20 @@ yargs(hideBin(process.argv))
     (yargs) => {
       return yargs.positional("delete", {
         type: "id",
-        describe: "Id of the hope your want to delete"
-      })
+        describe: "Id of the hope your want to delete",
+      });
+    },
+    (argv) => {}
+  )
+  .command(
+    "web [port]",
+    "Start a web server",
+    (yargs) => {
+      return yargs.positional("port", {
+        type: "number",
+        describe: "The port to start server on",
+        default: 5000,
+      });
     },
     (argv) => {}
   )
