@@ -43,6 +43,6 @@ test("removeHope removes a hope from the database", async () => {
   ];
   saveDB.mockResolvedValue(hopes);
   const result = await removeHope(2);
-  expect(result).toEqual("Invalid ID, try again");
+  expect(result).toBe("Invalid ID, try again");
 });
 
